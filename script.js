@@ -5,25 +5,36 @@ const ipAdress = document.querySelector('#ipAdress');
 const city = document.querySelector('#location');
 const timezone = document.querySelector('#timezone');
 const isp = document.querySelector('#isp');
+const apiKey = 'at_OQBifi7wE5UKnJSsAomiphaW9e9P9';
+let domain = '';
+let ip = '';
+let api_url = `https://geo.ipify.org/api/v1?apiKey=${apiKey}&ipAddress=${ip}&domain=${domain}`;
 
 
 // Events
+window.addEventListener('load', (evt) => {
+    getIp(api_url);
+    // evt.preventDefault();
+})
+
 button.addEventListener('submit', (evt) => {
-  
-  const regex = /\D/;
-  let domain = '';
-  console.log(adressInput);
-  const apiKey = 'at_OQBifi7wE5UKnJSsAomiphaW9e9P9';
-  let ipAdress = '';
+  const regex = /[a-zA-Z]+/g;
+  console.log(adressInput.value);
   console.log(adressInput.value.match(regex))
+
   if (adressInput.value.match(regex)) {
     domain = adressInput.value;
+    ip = '';
   } else {
-    ipAdress = adressInput.value;
+    ip = adressInput.value;
+    domain = '';
   }
-  const url = `https://geo.ipify.org/api/v1?apiKey=${apiKey}&ipAddress=${ipAdress}&domain=${domain}`
-  getIp(url);
+  console.log(ip, domain);
+  api_url = `https://geo.ipify.org/api/v1?apiKey=${apiKey}&ipAddress=${ip}&domain=${domain}`;
+  getIp(api_url);
+
   evt.preventDefault();
+  
 })
 
 // API
@@ -49,7 +60,6 @@ const myIcon = L.icon({
 // Ставим маркер по умолчанию (до выполнения функции по поиску коорд)
 const marker = L.marker([0, 0], {icon: myIcon}).addTo(mymap);
 
-
 // IP Geolocation API
   
 async function getIp(url){
@@ -58,10 +68,9 @@ const response = await fetch(url);
 const data = await response.json();
 console.log(data);
 try{
-  let lat = data.location.lat;
+let lat = data.location.lat;
 let lon = data.location.lng;
 console.log(lat,lon);
-
 // Ставим маркер там, где находится спутник после выполнения функции по поиску коорд. 
 marker.setLatLng([lat,lon]);
 mymap.setView([lat, lon],15);
@@ -73,6 +82,5 @@ isp.textContent = data.isp;
   alert(`Code: ${data.code},
 Message: ${data.messages}`);
 }
-
-
 };
+
