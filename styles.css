@@ -93,6 +93,7 @@ input {
     padding-left: 1rem;
     border-right: 1px solid hsl(0, 0%, 59%);
     padding-right: 2rem;
+    height: 4rem;
 }
 
 .ipInfo_partLabel {
