@@ -1,4 +1,4 @@
-const { response } = require('express');
+
 const express = require('express');
 const fetch = require('node-fetch');
 
@@ -26,6 +26,7 @@ let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3000;
 }
+
 app.listen(port, () => {
   console.log("Server started on port 3000");
 });
