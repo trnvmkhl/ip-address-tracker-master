@@ -5,10 +5,6 @@ const ipAdress = document.querySelector('#ipAdress');
 const city = document.querySelector('#location');
 const timezone = document.querySelector('#timezone');
 const isp = document.querySelector('#isp');
-const apiKey = 'at_OQBifi7wE5UKnJSsAomiphaW9e9P9';
-let domain = '';
-let ip = '';
-let api_url = `https://geo.ipify.org/api/v1?apiKey=${apiKey}&ipAddress=${ip}&domain=${domain}`;
 
 
 // Events
